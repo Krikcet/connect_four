@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+# create game instance of connect four
+class Game
+  attr_reader :player_one, :player_two
+  attr_accessor :board
+
+  def initialize
+    @board = Board.new.grid
+    @player_one = Player.new('X')
+    @player_two = Player.new('O')
+  end
+
+  
+end
