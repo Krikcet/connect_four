@@ -9,7 +9,7 @@ class Game
   attr_accessor :board
 
   def initialize
-    @board = Board.new.grid
+    @board = Board.new
     @player_one = Player.new('X')
     @player_two = Player.new('O')
   end

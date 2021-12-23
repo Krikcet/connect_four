@@ -7,4 +7,8 @@ class Player
   def initialize(symbol)
     @player_symbol = symbol
   end
+
+  def verify_input(input)
+    return input if input.between?(1, 7)
+  end
 end
