@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative '../lib/board'
+require_relative '../lib/player'
+
 # create game instance of connect four
 class Game
   attr_reader :player_one, :player_two
@@ -11,5 +14,5 @@ class Game
     @player_two = Player.new('O')
   end
 
-  
+
 end
