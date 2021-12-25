@@ -13,6 +13,5 @@ class Game
     @player_one = Player.new('X')
     @player_two = Player.new('O')
   end
-
-
+  
 end

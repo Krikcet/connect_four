@@ -11,4 +11,15 @@ class Player
   def verify_input(input)
     return input if input.between?(1, 7)
   end
+
+  def choose_column
+    loop do
+      column = gets.chomp.to_i
+      verified_column = verify_input(column)
+      return verified_column if verified_column
+      
+      puts 'Please choose a different column.'
+    end
+
+  end
 end

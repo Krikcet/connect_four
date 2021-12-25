@@ -18,4 +18,8 @@ class Board
   def display_board
     grid.each { |row| p row }
   end
+
+  def update_board
+    
+  end
 end
