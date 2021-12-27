@@ -2,6 +2,9 @@
 
 # create space objects that will populate the board for connect four
 class Space
+  attr_reader :value
+  attr_accessor :neighbors
+
   def initialize
     @value = ' '
     @neighbors = {
