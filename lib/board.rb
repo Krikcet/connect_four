@@ -15,13 +15,7 @@ class Board
   end
 
   def create_grid(rows, columns)
-    result = []
-    i = 0
-    until i == rows
-      result << Array.new(columns, ' ')
-      i += 1
-    end
-    result
+    Array.new(rows) { Array.new(columns, ' ') }
   end
 
   def display_board
@@ -34,8 +28,3 @@ class Board
     grid[i][input - 1] = symbol
   end
 end
-
-
-# board = Board.new
-# board.update_board(6, 'X')
-# board.display_board
