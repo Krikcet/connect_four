@@ -10,5 +10,5 @@ class Space
       left_diagonal: nil,
       right_diagonal: nil
     }
-  end  
+  end
 end
