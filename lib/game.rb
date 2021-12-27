@@ -27,4 +27,18 @@ class Game
       puts 'Please choose a different column.'
     end
   end
+
+  def winner?
+    return true if board.grid.any? do |row|
+      row.each_cons(4).any? do |spaces|
+        spaces.all? { |sym| sym == player_one.player_symbol || sym == player_two.player_symbol }
+      end
+    end
+    return true if board.grid.transpose.any? do |row|
+      row.each_cons(4).any? do |spaces|
+        spaces.all? { |sym| sym == player_one.player_symbol || sym == player_two.player_symbol }
+      end
+    end
+    false
+  end
 end

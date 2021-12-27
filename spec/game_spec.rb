@@ -54,12 +54,22 @@ describe Game do
         allow(game_choose).to receive(:gets).and_return(valid_input)
         6.times { game_choose.board.update_board(valid_input.to_i, 'X') }
       end
+
       it 'puts error message once' do
         valid_input = '5'
         error_message = 'Please choose a different column.'
         allow(game_choose).to receive(:verify_input).and_return(nil, valid_input.to_i)
         expect(game_choose).to receive(:puts).with(error_message).once
         game_choose.choose_column
+      end
+    end
+  end
+
+  describe '#winner?' do
+    subject(:game_winner) { described_class.new }
+    context 'when there is no winner' do
+      it 'returns false' do
+        expect(game_winner.winner?).to be false
       end
     end
   end

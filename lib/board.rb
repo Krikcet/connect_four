@@ -4,7 +4,7 @@ require_relative '../lib/space'
 
 # create board object for connect four
 class Board
-  attr_accessor :grid
+  attr_accessor :grid, :space_array
   attr_reader :rows, :columns
 
   def initialize(rows: 6, columns: 7)
@@ -28,3 +28,4 @@ class Board
     grid[i][input - 1] = symbol
   end
 end
+
