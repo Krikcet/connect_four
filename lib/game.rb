@@ -13,5 +13,18 @@ class Game
     @player_one = Player.new('X')
     @player_two = Player.new('O')
   end
-  
+
+  def verify_input(input)
+    return input if input.between?(1, 7) && board.grid.first[input - 1] == ' '
+  end
+
+  def choose_column
+    loop do
+      column = gets.chomp.to_i
+      verified_column = verify_input(column)
+      return verified_column if verified_column
+
+      puts 'Please choose a different column.'
+    end
+  end
 end
