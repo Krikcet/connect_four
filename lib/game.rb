@@ -28,17 +28,27 @@ class Game
     end
   end
 
-  def winner?
-    return true if board.grid.any? do |row|
+  def row_victory?(symbol)
+    board.grid.any? do |row|
       row.each_cons(4).any? do |spaces|
-        spaces.all? { |sym| sym == player_one.player_symbol || sym == player_two.player_symbol }
+        spaces.all? { |sym| sym == symbol }
       end
     end
-    return true if board.grid.transpose.any? do |row|
+  end
+
+  def column_victory?(symbol)
+    board.grid.transpose.any? do |row|
       row.each_cons(4).any? do |spaces|
-        spaces.all? { |sym| sym == player_one.player_symbol || sym == player_two.player_symbol }
+        spaces.all? { |sym| sym == symbol }
       end
     end
+  end
+
+  # diagonal victory
+
+  def winner?(symbol)
+    return true if row_victory?(symbol) || column_victory?(symbol)
+
     false
   end
 end
