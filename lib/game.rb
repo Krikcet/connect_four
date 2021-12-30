@@ -37,17 +37,32 @@ class Game
   end
 
   def column_victory?(symbol)
-    board.grid.transpose.any? do |row|
-      row.each_cons(4).any? do |spaces|
+    board.grid.transpose.any? do |column|
+      column.each_cons(4).any? do |spaces|
         spaces.all? { |sym| sym == symbol }
       end
     end
   end
 
-  # diagonal victory
+  def descending_victory?(symbol)
+    marked_spaces = board.grid.reduce([]) { |memo, row| memo << row.index(symbol) }
+    marked_spaces.compact.each_cons(4).any? do |spaces|
+      spaces.each_cons(2).all? { |first, second| second == first + 1 }
+    end
+  end
+
+  def ascending_victory?(symbol)
+    marked_spaces = board.grid.reduce([]) { |memo, row| memo << row.index(symbol) }
+    marked_spaces.compact.each_cons(4).any? do |spaces|
+      spaces.each_cons(2).all? { |first, second| second == first - 1 }
+    end
+  end
 
   def winner?(symbol)
-    return true if row_victory?(symbol) || column_victory?(symbol)
+    return true if row_victory?(symbol) ||
+                   column_victory?(symbol) ||
+                   ascending_victory?(symbol) ||
+                   descending_victory?(symbol)
 
     false
   end
