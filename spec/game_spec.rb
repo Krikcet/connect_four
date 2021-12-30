@@ -243,4 +243,21 @@ describe Game do
       end
     end
   end
+
+  describe '#winner?' do
+    context 'when a victory condition is true' do
+      it 'returns true' do
+        winner = 'X'
+        allow(game_test).to receive(:row_victory?).and_return(true)
+        expect(game_test.winner?(winner)).to be true
+      end
+    end
+
+    context 'when no victory conditions are true' do
+      it 'returns false' do
+        player_symbol = 'X'
+        expect(game_test.winner?(player_symbol)).to be false
+      end
+    end
+  end
 end
