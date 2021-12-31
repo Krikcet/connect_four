@@ -11,7 +11,6 @@ class Board
     @rows = rows
     @columns = columns
     @grid = create_grid(rows, columns)
-    @space_array = Array.new(grid.flatten.count, Space.new)
   end
 
   def create_grid(rows, columns)
@@ -28,4 +27,3 @@ class Board
     grid[i][input - 1] = symbol
   end
 end
-

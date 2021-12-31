@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require_relative '../lib/game'
 
@@ -257,6 +258,89 @@ describe Game do
       it 'returns false' do
         player_symbol = 'X'
         expect(game_test.winner?(player_symbol)).to be false
+      end
+    end
+  end
+
+  describe '#game_over?' do
+    context 'when no moves have been made' do
+      it 'returns false' do
+        symbol = 'X'
+        expect(game_test.game_over?(symbol)).to be false
+      end
+    end
+
+    context 'when winner? is true' do
+      it 'returns true' do
+        symbol = 'X'
+        allow(game_test).to receive(:winner?).and_return(true)
+        expect(game_test.game_over?(symbol)).to be true
+      end
+    end
+
+    context 'when every space is marked' do
+      it 'returns true' do
+        symbol = 'X'
+        allow(game_test).to receive(:winner?).and_return(false)
+        game_test.board.grid.each { |row| row.map! { symbol } }
+        expect(game_test.game_over?(symbol)).to be true
+      end
+    end
+  end
+
+  describe '#display_end' do
+    let(:player_one) { instance_double(Player, player_symbol: 'X') }
+    context 'when winner is true' do
+      it 'displays the victory message' do
+        allow(game_test).to receive(:winner?).and_return(true)
+        allow(game_test.board).to receive(:display_board)
+        victory_message = "#{player_one.player_symbol} wins!"
+        expect(game_test).to receive(:puts).and_return(victory_message)
+        game_test.display_end(player_one)
+      end
+    end
+
+    context 'when winner is false' do
+      it 'displays draw message' do
+        allow(game_test).to receive(:winner?).and_return(false)
+        allow(game_test.board).to receive(:display_board)
+        draw_message = "It's a draw!"
+        expect(game_test).to receive(:puts).and_return(draw_message)
+        game_test.display_end(player_one)
+      end
+    end
+  end
+
+  describe '#play_game' do
+    let(:player_one) { instance_double(Player, player_symbol: 'X') }
+    let(:player_two) { instance_double(Player, player_symbol: 'O') }
+    context 'when a player wins' do
+      before do
+        allow(game_test.board).to receive(:display_board)
+        allow(game_test).to receive(:choose_column)
+        allow(game_test.board).to receive(:update_board)
+        allow(game_test).to receive(:winner?).and_return(true)
+      end
+      it 'displays win message' do
+        choose_message = 'Choose a column'
+        win_message = "#{player_one.player_symbol} wins!"
+        expect(game_test).to receive(:puts).and_return(win_message, choose_message)
+        game_test.play_game
+      end
+    end
+
+    context 'when the game ends with a draw' do
+      before do
+        allow(game_test.board).to receive(:display_board)
+        allow(game_test).to receive(:choose_column)
+        allow(game_test.board).to receive(:update_board)
+        allow(game_test).to receive(:game_over?).and_return(true)
+      end
+      it 'displays draw message' do
+        draw_message = "It's a draw!"
+        choose_message = 'Choose a column'
+        expect(game_test).to receive(:puts).and_return(draw_message, choose_message)
+        game_test.play_game
       end
     end
   end

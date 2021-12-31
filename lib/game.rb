@@ -66,4 +66,32 @@ class Game
 
     false
   end
+
+  def game_over?(symbol)
+    return true if winner?(symbol) || board.grid.all? { |row| row.none? { |space| space == ' ' } }
+
+    false
+  end
+
+  def display_end(player)
+    board.display_board
+    puts winner?(player.player_symbol) ? "#{player.player_symbol} wins!" : "It's a draw!"
+  end
+
+  def display_welcome
+    puts 'Welcome to Connect Four. Choose a column! (1-7)'
+  end
+
+  def play_game
+    player = player_one
+    loop do
+      board.display_board
+      puts 'Choose a column'
+      board.update_board(choose_column, player.player_symbol)
+      return display_end(player) if game_over?(player.player_symbol)
+
+      player = player == player_one ? player_two : player_one
+    end
+  end
 end
+
