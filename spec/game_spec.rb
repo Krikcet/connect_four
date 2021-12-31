@@ -47,7 +47,7 @@ describe Game do
         game_test.choose_column
       end
     end
-    
+
     context 'when first chosen column is full and second chosen column is not' do
       before do
         valid_input = '5'

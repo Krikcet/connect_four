@@ -23,7 +23,6 @@ describe Board do
   describe '#update_board' do
     subject(:board_update) { described_class.new }
     context 'when first move is made' do
-     
       it 'changes bottom space in column to player symbol' do
         input = 5
         player_symbol = 'X'
@@ -33,9 +32,10 @@ describe Board do
       it 'does not change any other spaces in the column' do
         input = 5
         player_symbol = 'X'
-        expect { board_update.update_board(input, player_symbol) }.not_to change { board_update.grid.transpose[input - 1].first }
+        expect { board_update.update_board(input, player_symbol) }.not_to(change { board_update.grid.transpose[input - 1].first })
       end
     end
+
     context 'when a column has been marked previously' do
       before do
         board_update.grid.last[4] = 'O'

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/space'
-
 # create board object for connect four
 class Board
   attr_accessor :grid, :space_array
